@@ -11,11 +11,11 @@ const Header = () => {
     const cartValue = useSelector((state: RootState) => state.cart.totalQuantitiy);
 
     return (
-        <div className='flex justify-between items-center py-6 px-8'>
+        <div className='flex justify-between items-center py-6 px-28'>
             <Link href={'/'}>
                 <Image className='w-40' src={logo} alt="logo" />
             </Link>
-            <ul className='flex gap-x-3'>
+            <ul className='flex gap-x-9'>
                 <li className='text-lg'>
                     <Link href={'/category/female'}>
                         Female

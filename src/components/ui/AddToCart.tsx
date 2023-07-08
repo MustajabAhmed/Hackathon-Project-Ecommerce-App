@@ -13,7 +13,7 @@ const AddToCart = () => {
   };
 
   return (
-    <Button onClick={addItem}>
+    <Button className="bg-black rounded text-white hover:bg-gray-500 hover:text-black" onClick={addItem}>
       Add To Cart
     </Button>
   )
