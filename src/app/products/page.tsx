@@ -1,19 +1,12 @@
-import ProductCard from '@/components/ProductCard';
 import { products } from '@/utils/mock';
+import ProductCard from '@/components/ProductCard';
 import { StaticImageData } from 'next/image';
-// import P1 from 'public/product-1.webp';
-// import P2 from 'public/product-2.png';
-// import P3 from 'public/product-3.png';
 
-
-const ProductList = () => {
-  const productChecks = products.slice(0, 3);
-  // console.log(productChecks);
-
+const AllProducts = () => {
   return (
-    <div className='flex justify-evenly mt-16 py-10'>
+    <div className='flex justify-evenly mt-16 py-10 flex-wrap'>
       {
-        productChecks.map((product) => {
+        products.map((product) => {
           return (
             <ProductCard id={product.id} key={product.id} title={product.name} price={product.price} img={product.image as StaticImageData} category={product.category} />
           )
@@ -24,7 +17,7 @@ const ProductList = () => {
       <ProductCard title="Product 3" price={789} img={P3} /> */}
 
     </div>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default AllProducts

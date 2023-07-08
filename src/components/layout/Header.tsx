@@ -12,25 +12,32 @@ const Header = () => {
 
     return (
         <div className='flex justify-between items-center py-6 px-8'>
-            <Image className='w-40' src={logo} alt="logo" />
+            <Link href={'/'}>
+                <Image className='w-40' src={logo} alt="logo" />
+            </Link>
             <ul className='flex gap-x-3'>
                 <li className='text-lg'>
-                    <Link href={'#'}>
+                    <Link href={'/category/female'}>
                         Female
                     </Link>
                 </li>
                 <li className='text-lg'>
-                    <Link href={'#'}>
+                    <Link href={'/category/male'}>
                         Male
                     </Link>
                 </li>
                 <li className='text-lg'>
-                    <Link href={'#'}>
+                    <Link href={'/category/kids'}>
                         Kids
                     </Link>
                 </li>
                 <li className='text-lg'>
-                    <Link href={'#'}>
+                    <Link href={'/category/youngster'}>
+                        Youngster
+                    </Link>
+                </li>
+                <li className='text-lg'>
+                    <Link href={'/products'}>
                         All Products
                     </Link>
                 </li>
