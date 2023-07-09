@@ -1,6 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
 import { FC } from 'react';
-import AddToCart from '@/components/ui/AddToCart'
 import Link from 'next/link';
 
 
@@ -23,7 +22,6 @@ const ProductCard: FC<ProductCardProps> = ({ id, title, price, img, category }) 
       <p className='font-bold text-lg'>
         Category <span className='text-base font-normal capitalize'>{category}</span>
       </p>
-      {/* <AddToCart /> */}
     </div>
     </Link>
   );

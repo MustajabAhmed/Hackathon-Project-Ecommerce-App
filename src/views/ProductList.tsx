@@ -1,13 +1,32 @@
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/utils/mock';
 import { StaticImageData } from 'next/image';
-// import P1 from 'public/product-1.webp';
-// import P2 from 'public/product-2.png';
-// import P3 from 'public/product-3.png';
+import { client } from '@/lib/client';
+import { Image as IImage } from 'sanity'
 
 
-const ProductList = () => {
+
+export const getProductData = async () => {
+  const res = await client.fetch(`*[_type=="product"]{
+    price, product_image, cloth_type -> {
+      cloth_tyoey_name
+    }, product_care, cloth_category, title, product_details
+  }`)
+  return res 
+}
+
+interface IProduct {
+  title: string,
+  description: string
+  image: IImage,
+}
+
+
+const ProductList = async () => {
   const productChecks = products.slice(0, 3);
+
+  const data: IProduct[] = await getProductData()
+  console.log(data);
   // console.log(productChecks);
 
   return (
@@ -19,10 +38,6 @@ const ProductList = () => {
           )
         })
       }
-      {/* <ProductCard title="Product 1" price={123} img={P1} />
-      <ProductCard title="Product 2" price={456} img={P2} />
-      <ProductCard title="Product 3" price={789} img={P3} /> */}
-
     </div>
   );
 };
