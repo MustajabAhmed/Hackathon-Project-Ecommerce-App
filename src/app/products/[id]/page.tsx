@@ -3,30 +3,56 @@ import { products } from "@/utils/mock"
 import Image, { StaticImageData } from "next/image"
 import AddToCart from '@/components/ui/AddToCart'
 import Quantity from "@/components/Quantity"
+import { client } from '@/lib/client';
+import { Image as IImage } from 'sanity'
+import { urlForImage } from '@/lib/image';
 
+export const getProductData = async () => {
+  const res = await client.fetch(`*[_type=="product"]{
+    price, product_image, cloth_type -> {
+      cloth_tyoey_name
+    }, product_care, cloth_category, title, product_details, _id
+  }`)
+  return res
+}
+interface IProduct {
+  _id: string,
+  title: string,
+  price: number,
+  cloth_type_name: string,
+  cloth_category: string,
+  product_details: string
+  product_image: IImage[],
+  product_care: string[],
+}
 
-export default function Page({ params }: { params: { id: number } }) {
+export default async function Page({ params }: { params: { id: string } }) {
 
-  const productDetails = products.filter((product) => product.id == params.id)
+  const data: IProduct[] = await getProductData()
 
-  // console.log(params.id, products , productDetails);
+  const productDetails = data.filter((product) => product._id == params.id)
+
+  const productDetail = productDetails[0];
+
+  // console.log(productDetails[0]);
 
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 
   return (
-    <div className='flex mt-16 py-10 flex-wrap'>
-      {
-        productDetails.map((product) => {
-          return (
-            <div key={product.id} className="flex justify-between gap-6">
+    <div>
+
+      <div className='flex mt-16 py-10 flex-wrap'>
+        <div className="row flex justify-content-center gap-x-4 ">
+          <div className="col-12 py-10 px-10 align-items-center">
+            <div key={productDetail._id} className="flex justify-between gap-6">
               <div>
-                <Image src={product.image} alt={product.name} />
+                <Image width={380} height={400} src={urlForImage(productDetail.product_image[0]).width(200).url()} alt={productDetail.title} />
               </div>
               <div>
                 <div>
-                  <h1 className="text-2xl">{product.name}</h1>
-                  <h2 className="text-base text-gray-400 font-semibold">{product.tagline}</h2>
+                  <h1 className="text-2xl">{productDetail.title}</h1>
+                  <h2 className="text-base text-gray-400 font-semibold">{productDetail.cloth_type_name}</h2>
                   {/* <p>Name {product.name}</p>
                   <p>Price {product.price}</p>
                   <p>Category {product.category}</p>
@@ -56,14 +82,45 @@ export default function Page({ params }: { params: { id: number } }) {
 
                   <div className="mt-5 flex items-center gap-x-4">
                     <AddToCart />
-                    <h2 className="text-2xl font-bold">${product.price.toFixed(2)}</h2>
+                    <h2 className="text-2xl font-bold">${productDetail.price.toFixed(2)}</h2>
                   </div>
                 </div>
               </div>
             </div>
-          )
-        })
-      }
+          </div>
+        </div>
+      </div>
+      <div className="col-12 py-10 px-10">
+        <div>
+          <div>
+            <h1 className="text-2xl font-semibold ">
+              Product Information
+            </h1>
+          </div>
+          <div className="flex py-5 justify-start gap-x-9 mt-5">
+            <h2>PRODUCT DETAILS</h2>
+            <div>
+              <p>{productDetail.product_details}</p>
+            </div>
+          </div>
+          <div className="flex py-5 justify-start gap-x-9 mt-5">
+            <h2>
+              PRODUCT CARES
+            </h2>
+            {/* <p> */}
+            <div>
+            <ul>
+              {
+                productDetail.product_care.map((item) => (
+                  <li>{item}</li>
+                ))
+              }
+            </ul>
+            </div>
+            {/* </p> */}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

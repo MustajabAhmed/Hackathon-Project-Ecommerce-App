@@ -10,31 +10,35 @@ export const getProductData = async () => {
   const res = await client.fetch(`*[_type=="product"]{
     price, product_image, cloth_type -> {
       cloth_tyoey_name
-    }, product_care, cloth_category, title, product_details
+    }, product_care, cloth_category, title, product_details, _id
   }`)
   return res 
 }
 
 interface IProduct {
+  _id: string,
   title: string,
-  description: string
-  image: IImage,
+  price: number,
+  cloth_type_name: string,
+  product_details: string
+  product_image: IImage[],
+  product_care: string[],
 }
 
 
 const ProductList = async () => {
-  const productChecks = products.slice(0, 3);
+  // const productChecks = products.slice(0, 3);
 
   const data: IProduct[] = await getProductData()
-  console.log(data);
+  // console.log(data);
   // console.log(productChecks);
 
   return (
     <div className='flex justify-evenly mt-16 py-10'>
       {
-        productChecks.map((product) => {
+        data.map((product) => {
           return (
-            <ProductCard id={product.id} key={product.id} title={product.name} price={product.price} img={product.image as StaticImageData} category={product.category} />
+            <ProductCard id={product._id} key={product._id} title={product.title} price={product.price} img={product.product_image as Array<IImage>} category={product.cloth_type_name} />
           )
         })
       }
