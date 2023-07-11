@@ -61,7 +61,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   <div className="flex gap-x-3">
                     {
                       sizes.map((size) => (
-                        <div className="h-6 w-6 flex justify-center items-center duration-300 border rounded-full hover:shadow-xli">
+                        <div key={size} className="h-6 w-6 flex justify-center items-center duration-300 border rounded-full hover:shadow-xli">
                           <span className="text-[10px] font-bold text-center text-gray-600">
                             {size}
                           </span>
@@ -108,7 +108,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               <ul>
                 {
                   productDetail.product_care.map((item) => (
-                    <li>{item}</li>
+                    <li key={item}>{item}</li>
                   ))
                 }
               </ul>
