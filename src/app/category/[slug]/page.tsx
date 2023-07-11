@@ -4,7 +4,7 @@ import { StaticImageData } from "next/image"
 import { client } from '@/lib/client';
 import { Image as IImage } from 'sanity'
 
-export const getProductData = async () => {
+const getProductData = async () => {
   const res = await client.fetch(`*[_type=="product"]{
     price, product_image, cloth_type -> {
       cloth_tyoey_name
@@ -30,6 +30,9 @@ interface IProduct {
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const data: IProduct[] = await getProductData()
+
+  // console.log(data);
+  
 
   const productDetails = data.filter((product) =>  product.cloth_category.cloth_category_name.toLowerCase() === params.slug)
 
