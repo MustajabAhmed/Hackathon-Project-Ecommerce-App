@@ -15,17 +15,22 @@ const getProductData = async () => {
   }`)
   return res
 }
+
 interface IProduct {
   _id: string,
   title: string,
   price: number,
   cloth_type_name: string,
-  cloth_category: string,
-  product_details: string
+  product_details: string,
+  cloth_category: IClothCategory,
+  cloth_category_name: string,
   product_image: IImage[],
   product_care: string[],
 }
 
+interface IClothCategory {
+  cloth_category_name: string
+  }
 export default async function Page({ params }: { params: { id: string } }) {
 
   const data: IProduct[] = await getProductData()
