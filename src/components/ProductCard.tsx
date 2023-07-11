@@ -32,6 +32,7 @@ const ProductCard: FC<ProductCardProps> = ({ id, title, img, price, category }) 
         <p className='font-bold text-lg'>
           Category <span className='text-base font-normal capitalize'>{category}</span>
         </p>
+        <button className='border bg-blue-500 text-white rounded px-3 py-3'>Add to Cart</button>
       </div>
     </Link>
   );

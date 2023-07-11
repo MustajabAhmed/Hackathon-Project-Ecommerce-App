@@ -53,10 +53,6 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <div>
                   <h1 className="text-2xl">{productDetail.title}</h1>
                   <h2 className="text-base text-gray-400 font-semibold">{productDetail.cloth_type_name}</h2>
-                  {/* <p>Name {product.name}</p>
-                  <p>Price {product.price}</p>
-                  <p>Category {product.category}</p>
-                  <AddToCart /> */}
                 </div>
                 <div>
                   <h3 className="text-xs mt-6 font-semibold">
@@ -109,13 +105,13 @@ export default async function Page({ params }: { params: { id: string } }) {
             </h2>
             {/* <p> */}
             <div>
-            <ul>
-              {
-                productDetail.product_care.map((item) => (
-                  <li>{item}</li>
-                ))
-              }
-            </ul>
+              <ul>
+                {
+                  productDetail.product_care.map((item) => (
+                    <li>{item}</li>
+                  ))
+                }
+              </ul>
             </div>
             {/* </p> */}
           </div>
