@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           return (
             <ProductCard id={product._id} key={product._id} title={product.title} price={product.price} img={product.product_image as Array<IImage>} category={product.cloth_category.cloth_category_name} />
           )
-        }) : <p>No Products Found</p>
+        }) : <p>No Product Found</p>
       }
       {/* <ProductCard title="Product 1" price={123} img={P1} />
       <ProductCard title="Product 2" price={456} img={P2} />
