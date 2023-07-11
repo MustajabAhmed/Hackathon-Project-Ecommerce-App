@@ -15,13 +15,6 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ id, title, img, price, category }) => {
-  // console.log(id);
-
-  // img.map((item) => (
-  //   console.log(item)
-
-  // ))
-
   return (
     <Link href={`/products/${id}`}>
       <div className='py-5 mx-3'>
