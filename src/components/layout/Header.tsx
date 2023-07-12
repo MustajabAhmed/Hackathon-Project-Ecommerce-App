@@ -42,12 +42,14 @@ const Header = () => {
                     </Link>
                 </li>
             </ul>
-            <div className='h-10 w-10 rounded-full bg-gray-300 flex justify-center items-center relative'>
-                <span className='absolute right-1 top-0 rounded-full bg-red-500 h-5 w-5 text-white text-sx text-center'>
-                    {cartValue}
-                </span>
-                <ShoppingCart className='h-6 w-6' />
-            </div>
+            <Link href={'/cart'} >
+                <div className='h-10 w-10 rounded-full bg-gray-300 flex justify-center items-center relative'>
+                    <span className='absolute right-1 top-0 rounded-full bg-red-500 h-5 w-5 text-white text-sx text-center'>
+                        {cartValue}
+                    </span>
+                    <ShoppingCart className='h-6 w-6' />
+                </div>
+            </Link>
         </div>
     )
 }

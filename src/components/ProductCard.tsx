@@ -1,3 +1,4 @@
+'use client'
 import Image, { StaticImageData } from 'next/image';
 import { FC } from 'react';
 import Link from 'next/link';
@@ -15,26 +16,40 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ id, title, img, price, category }) => {
+
+  const handleAddToCart = async () => {
+    const res = await fetch('api/cart', {
+      method: "POST",
+      body: JSON.stringify({
+        product_id: id,
+      }),
+    })
+
+    const result = await res.json()
+    // console.log(result);
+
+  }
+
   return (
-    <Link href={`/products/${id}`}>
-      <div className='py-5 mx-3'>
-        {
-          // console.log(img);
+    // <Link href={`/products/${id}`}>
+    <div className='py-5 mx-3'>
+      {
+        // console.log(img);
 
-          // img.map( (item) => (
+        // img.map( (item) => (
 
-          <Image  width={380} height={400} className='object-cover object-top max-h-[340px]' src={urlForImage(img[0]).width(200).url()} alt={title} />
-          // ))
-        }
+        <Image width={380} height={400} className='object-cover object-top max-h-[340px]' src={urlForImage(img[0]).width(200).url()} alt={title} />
+        // ))
+      }
 
-        <h3 className='font-bold text-lg mt-3'>{title}</h3>
-        <p className='font-bold text-lg'>${price}</p>
-        <p className='font-bold text-lg'>
-          Category <span className='text-base font-normal capitalize'>{category}</span>
-        </p>
-        <button className='border bg-blue-500 text-white rounded px-3 py-3'>Add to Cart</button>
-      </div>
-    </Link>
+      <h3 className='font-bold text-lg mt-3'>{title}</h3>
+      <p className='font-bold text-lg'>${price}</p>
+      <p className='font-bold text-lg'>
+        Category <span className='text-base font-normal capitalize'>{category}</span>
+      </p>
+      <button onClick={handleAddToCart} className='border bg-blue-500 text-white rounded px-3 py-3'>Add to Cart</button>
+    </div>
+    // </Link>
   );
 };
 
