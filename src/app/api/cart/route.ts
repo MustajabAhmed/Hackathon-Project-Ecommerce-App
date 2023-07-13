@@ -1,4 +1,4 @@
-import { cartTable, db } from "@/lib/drizzle"
+import { cartTable, db  } from "@/lib/drizzle"
 import { cookies } from "next/dist/client/components/headers";
 import { NextRequest, NextResponse } from "next/server"
 import { v4 as uuid } from "uuid";
@@ -14,7 +14,7 @@ export const GET = async (request: NextRequest) => {
     
 
     try {
-        const res = await db.select().from(cartTable).where(eq(cartTable.user_id as Aliased<string>, user_id as string));
+        const res = await db.select().from(cartTable).where(eq(cartTable.user_id , user_id as string));
         // console.log(res);
         
         return NextResponse.json({ res })
