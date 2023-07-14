@@ -15,7 +15,7 @@ export const GET = async (request: NextRequest) => {
 
     try {
         const res = await db.select().from(cartTable).where(eq(cartTable.user_id , user_id as string));
-        // console.log(res);
+        console.log(res);
         
         return NextResponse.json({ res })
     } catch (error) {
@@ -41,7 +41,7 @@ export const POST = async (request: NextRequest) => {
     try {
         const res = await db.insert(cartTable).values({
             product_id: req.product_id,
-            quantity: 1,
+            quantity: req.quantity,
             user_id: cookies().get('user_id')?.value as string
         });
         return NextResponse.json({ res })

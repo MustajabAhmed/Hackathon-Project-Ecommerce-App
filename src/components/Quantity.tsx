@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 
-const Quantity = () => {
+interface QuantityProps {
+    num: number;
+    setNum: (value: number) => void;
+  }
+
+const Quantity = ({ num, setNum }: QuantityProps) => {
 
     // let num = 1;
-    const [num, setNum] = useState(1)
+    // const [num, setNum] = useState(1)
 
 
     return (
