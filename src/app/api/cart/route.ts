@@ -6,16 +6,10 @@ import { eq } from 'drizzle-orm';
 
 export const GET = async (request: NextRequest) => {
 
-    const setCookies = cookies()
-
     const user_id = cookies().get('user_id')?.value
-
-    // console.log(user_id);
-    
 
     try {
         const res = await db.select().from(cartTable).where(eq(cartTable.user_id , user_id as string));
-        // console.log(res);
         
         return NextResponse.json({ res })
     } catch (error) {
