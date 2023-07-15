@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { client } from "@/lib/client";
 import { urlForImage } from "@/lib/image";
+import { toast } from "react-hot-toast";
 import Quantity from "@/components/Quantity";
 
 const getProductData = async () => {
@@ -67,6 +68,9 @@ const Page = ({ params }: PageProps) => {
     });
 
     const result = await res.json();
+    if (result) {
+      toast.success("Product Added Successfully")
+    }
   };
 
   const sizes = ["xs", "sm", "md", "lg", "xl"];
@@ -76,7 +80,6 @@ const Page = ({ params }: PageProps) => {
   if (!productDetail) {
     return <div>Loading...</div>;
   }
-
 
   return (
     <div>
