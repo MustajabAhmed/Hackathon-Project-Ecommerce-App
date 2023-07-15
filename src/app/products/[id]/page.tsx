@@ -67,18 +67,9 @@ const Page = ({ params }: PageProps) => {
     });
 
     const result = await res.json();
-    // Handle the result as needed
   };
 
   const sizes = ["xs", "sm", "md", "lg", "xl"];
-
-  const handleDecreaseQuantity = () => {
-    setQuantity((prevQuantity) => (prevQuantity <= 1 ? 1 : prevQuantity - 1));
-  };
-
-  const handleIncreaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-  };
 
   const totalPrice = productDetail?.price ? productDetail.price * quantity : 0;
 
@@ -86,8 +77,6 @@ const Page = ({ params }: PageProps) => {
     return <div>Loading...</div>;
   }
 
-  // console.log(productDetail);
-  
 
   return (
     <div>
@@ -99,7 +88,7 @@ const Page = ({ params }: PageProps) => {
                 <Image
                   width={380}
                   height={400}
-                  src={urlForImage(productDetail.product_image[0]).width(200).url() }
+                  src={urlForImage(productDetail.product_image[0]).width(200).url()}
                   alt={productDetail.title}
                 />
               </div>
@@ -136,7 +125,7 @@ const Page = ({ params }: PageProps) => {
                       Add to Cart
                     </button>
                     <h2 className="text-2xl font-bold">
-                      ${productDetail.price.toFixed(2)}
+                      ${totalPrice.toFixed(2)}
                     </h2>
                   </div>
                 </div>
