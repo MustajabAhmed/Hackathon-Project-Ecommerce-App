@@ -6,6 +6,10 @@ import { Image as IImage } from 'sanity';
 import { urlForImage } from '@/lib/image';
 import { client } from '@/lib/client';
 import Quantity from '@/components/Quantity';
+import getStripePromise from "@/lib/stripe"
+import Checkout from '@/components/checkout';
+import { toast } from 'react-hot-toast';
+
 
 const getProductData = async () => {
     const res = await client.fetch(`*[_type=="product"]{
@@ -48,6 +52,28 @@ const getAddToCartProduct = async () => {
 
 interface CartData {
     res: Array<{ id: number; user_id: string; product_id: string; quantity: number }>;
+}
+
+const handleCheckout = async (filteredProducts: any) => {
+    const response = await fetch('/api/stripe-session/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        cache: 'no-cache',
+        body: JSON.stringify({
+            filteredProducts
+        }),
+    })
+
+    const stripe = await getStripePromise()
+
+    const data = await response.json()
+
+    if (data.session) {
+        stripe?.redirectToCheckout({ sessionId: data.session.id })
+        toast.success('Checkout Successfully')
+    }
 }
 
 const cart = () => {
@@ -167,7 +193,18 @@ const cart = () => {
                             <p>Subtotal: ${subtotal}</p>
                             <p>Shipping: ${shipping}</p>
                             <p className='text-xl font-bold mt-2'>Total: ${total}</p>
-                            <button className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 mt-4 rounded'>Checkout</button>
+                            {/* <Checkout filteredProducts={filteredProducts} /> */}
+                            <button onClick={() =>
+                                handleCheckout(
+                                    filteredProducts.map((product) => ({
+                                        quantity:
+                                            data?.res.find((item) => item.product_id === product._id)?.quantity || 0,
+                                        price: product.price || 0,
+                                        title: product.title,
+                                    }))
+                                )
+                            } className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 mt-4 rounded'>Checkout</button>
+
                         </div>
                     </div>
                 </div>
