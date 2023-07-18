@@ -76,7 +76,7 @@ const handleCheckout = async (filteredProducts: any) => {
     }
 }
 
-const cart = () => {
+const Cart = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const [data, setData] = useState<CartData | null>(null);
 
@@ -215,4 +215,4 @@ const cart = () => {
     );
 };
 
-export default cart;
+export default Cart;
