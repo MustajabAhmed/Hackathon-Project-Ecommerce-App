@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { client } from "@/lib/client";
 import { urlForImage } from "@/lib/image";
+import { useDispatch } from "react-redux"
+import { cartActions } from "@/store/slice/cartSlice";
 import { toast } from "react-hot-toast";
 import Quantity from "@/components/Quantity";
 
@@ -44,6 +46,8 @@ interface PageProps {
 }
 
 const Page = ({ params }: PageProps) => {
+  const dispatch = useDispatch();
+
   const [quantity, setQuantity] = useState(1);
   const [productDetail, setProductDetail] = useState<IProduct | null>(null);
 
@@ -59,6 +63,8 @@ const Page = ({ params }: PageProps) => {
   }, [params.id]);
 
   const handleAddToCart = async () => {
+    dispatch(cartActions.addToCart({ quantity: quantity }));
+    toast.success("Product Added Successfully")
     const res = await fetch("../api/cart", {
       method: "POST",
       body: JSON.stringify({
@@ -68,9 +74,7 @@ const Page = ({ params }: PageProps) => {
     });
 
     const result = await res.json();
-    if (result) {
-      toast.success("Product Added Successfully")
-    }
+
   };
 
   const sizes = ["xs", "sm", "md", "lg", "xl"];
