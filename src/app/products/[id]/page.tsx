@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { client } from "@/lib/client";
 import { urlForImage } from "@/lib/image";
-import { Image as IImage } from 'sanity'
 import { toast } from "react-hot-toast";
 import Quantity from "@/components/Quantity";
 
@@ -32,7 +31,7 @@ interface IProduct {
   cloth_type_name: string;
   product_details: string;
   cloth_category: IClothCategory;
-  product_image: IImage[];
+  product_image: { asset: { url: string } }[];
   product_care: string[];
 }
 
@@ -81,9 +80,6 @@ const Page = ({ params }: PageProps) => {
   if (!productDetail) {
     return <div>Loading...</div>;
   }
-
-  console.log(productDetail.product_image);
-  
 
   return (
     <div>
